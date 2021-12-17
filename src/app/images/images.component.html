@@ -12,7 +12,8 @@
         </div>          
     </div>
     <div class="row row-cols-1 row-cols-md-3">
-        <div class="col mb-4 d-flex justify-content-center" *ngFor="let image of images">
+        <div class="col mb-4 d-flex justify-content-center" *ngFor="let image of images | paginate: 
+                { itemsPerPage: 9, currentPage: page, totalItems: totalLength}">
           <div >
             <a [routerLink]="['/images',image.id]">
                 <img [src]="image.thumbnailUrl" [title]="image.title" width="410" height="410">
@@ -20,6 +21,7 @@
           </div>
         </div>
     </div>
+    <pagination-controls class="d-flex justify-content-center" (pageChange)="page = $event"></pagination-controls>
 </div>
 
 

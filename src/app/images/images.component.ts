@@ -15,6 +15,8 @@ export class ImagesComponent implements OnInit, OnDestroy{
   sub!: Subscription;
   errorMessage: string = "";
   images: IImage[] = [];
+  totalLength: any;
+  page: number = 1;
 
   constructor(private imageService: ImagesService,
     private router: Router) { }
@@ -52,6 +54,7 @@ export class ImagesComponent implements OnInit, OnDestroy{
     this.sub = this.imageService.getImages().subscribe({
       next: images => {
         this.images = images;
+        this.totalLength = images.length;
         console.log(images)
       },
       error: err => this.errorMessage = err

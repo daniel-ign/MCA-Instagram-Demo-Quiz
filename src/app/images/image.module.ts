@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ImageDetailComponent} from './details/image-detail.component';
 import { ImageDetailGuard } from './details/image-detail.guard';
 import { ImageUploadComponent } from './upload/image-upload.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -22,7 +23,8 @@ import { ImageUploadComponent } from './upload/image-upload.component';
       component: ImageDetailComponent},
       {path:'image-upload', component: ImageUploadComponent}
     ]),
-    SharedModule
+    SharedModule,
+    NgxPaginationModule
   ]
 })
 export class ImageModule { }

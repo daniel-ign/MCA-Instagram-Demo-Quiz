@@ -2,7 +2,9 @@
     <div class='card-header'>
       {{pageTitle}}
     </div>
-  
+    <ngx-spinner *ngIf="submitted" bdColor = "rgba(0, 0, 0, 0.8)" [fullScreen] = "true">
+      <div class="spinner-border text-primary" style="width: 100px; height: 100px;" role="status"></div>
+    </ngx-spinner>
     <div class='card-body'>
       <div class='row'>
         <form #form="ngForm" (ngSubmit)="onSubmit(form)">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { IImage } from '../image';
 import { ImagesService } from '../images.service';
 
@@ -22,9 +23,11 @@ export class ImageUploadComponent implements OnInit {
   image: IImage = {...this.emptyImage};
   filePath: any = "";
   imageSrc: any;
+  submitted: boolean = false;
 
   constructor(private router: Router,
-    private imageService: ImagesService) { }
+    private imageService: ImagesService,
+    private spinner: NgxSpinnerService) { }
 
   handleFileInput(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -39,19 +42,29 @@ export class ImageUploadComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(form: NgForm): void {
+    if(!this.submitted){
+      this.submitted = true;
+    }
     if(form.valid){
       this.image.title = form.value.title;
       this.image.albumId = form.value.albumId;
       this.image.url = this.filePath;
       this.image.thumbnailUrl = this.filePath;
       console.log(this.image);
+      
+      this.spinner.show();
       this.imageService.uploadImage(this.image);
-      this.router.navigate(['/images']);
-    }
+
+      setTimeout(() => {
+        this.spinner.hide();
+        this.router.navigate(['/images']);
+      }, 3000);
+      
+      
+    }  
   }
 
   onBack(): void{
@@ -59,7 +72,7 @@ export class ImageUploadComponent implements OnInit {
   }
 
   cancel(form: NgForm): void{
-    form.resetForm();
+    this.image = this.emptyImage;
     form.valid == true;
     this.filePath = "";
     this.imageSrc = null;
