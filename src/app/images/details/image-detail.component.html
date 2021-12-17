@@ -1,0 +1,146 @@
+<div class='card'>
+    <div class='card-header'>
+      {{pageTitle}}
+    </div>
+  
+    <div class='card-body'
+         *ngIf='image'>
+      <div class='row'>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <div class='col-md-8'>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Title:</div>
+              <div class='col-md-8'>{{image.title}}</div>
+              <div *ngIf="editClicked" >
+                <input type="text" 
+                      value="{{image.title}}" 
+                      name="title" 
+                      id="title" 
+                      class="form-control" 
+                      [ngModel]="image.title"
+                      required #titleField="ngModel"
+                      [class.field-error]="form.submitted && titleField.invalid">
+                      <div [hidden]="!form.submitted || titleField.valid" class="alert alert-danger">
+                        Enter a Title
+                      </div>
+              </div>    
+            </div>
+
+            <div class="row" *ngIf="editClicked">
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row'>
+              <div class='col-md-4'>Id:</div>
+              <div class='col-md-8'>{{image.id}} </div>
+            </div>
+
+            <div class="row" *ngIf="editClicked">
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Album Id:</div>
+              <div class='col-md-8'>{{image.albumId}} </div>
+              <div *ngIf="editClicked" >
+                <input type="number" 
+                      value="{{image.albumId}}" 
+                      name="albumId" 
+                      id="albumId" 
+                      class="form-control" 
+                      [ngModel]="image.albumId"
+                      required #albumIdField="ngModel"
+                      [class.field-error]="form.submitted && albumIdField.invalid">
+                      <div [hidden]="!form.submitted || albumIdField.valid" class="alert alert-danger">
+                        Enter a Album Id
+                      </div> 
+              </div>
+            </div>
+
+            <div class="row" *ngIf="editClicked">
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Url:</div>
+              <div class='col-md-8'><a href="{{image.url}}">{{image.url}}</a> </div>
+              <div *ngIf="editClicked" >
+                <input type="text" 
+                      value="{{image.url}}" 
+                      name="url" 
+                      id="url" 
+                      class="form-control" 
+                      [ngModel]="image.url"
+                      required #urlField="ngModel"
+                      [class.field-error]="form.submitted && urlField.invalid">
+                      <div [hidden]="!form.submitted || urlField.valid" class="alert alert-danger">
+                        Enter a Url
+                      </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="editClicked">
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Thumbnail Url:</div>
+              <div class='col-md-8'><a href="{{image.thumbnailUrl}}">{{image.thumbnailUrl}}</a> </div>
+              <div *ngIf="editClicked" >
+                <input type="text" 
+                      value="{{image.thumbnailUrl}}" 
+                      name="thumbnailUrl" 
+                      id="thumbnailUrl" 
+                      class="form-control" 
+                      [ngModel]="image.thumbnailUrl"
+                      required #thumbnailUrlField="ngModel"
+                      [class.field-error]="form.submitted && thumbnailUrlField.invalid">
+                      <div [hidden]="!form.submitted || thumbnailUrlField.valid" class="alert alert-danger">
+                        Enter a Thumbail Url
+                      </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class="row form-group">
+              <div class='col-md-4' *ngIf="!editClicked">
+                  <button type="button" class="btn btn-outline-primary" (click)="edit()" >Edit</button>&nbsp;
+                  <button type="button" class="btn btn-outline-danger" (click)="delete(image.id)" >Delete</button>
+              </div>
+              <div class="row">
+                <div class='col-md-4'>&nbsp;</div>
+              </div>
+              <div class='col-md-4' *ngIf="editClicked">
+                <button class="btn btn-outline-success" >Confirm</button>&nbsp;
+                <button class="btn btn-outline-danger" (click)="cancel()">Cancel</button>
+              </div>
+              <div class="row" *ngIf="editClicked">
+                <div class='col-md-4'>&nbsp;</div>
+              </div>
+            </div>
+            
+          </div>
+        </form>
+          <div class='col-md-4'>
+            <img class='center-block img-responsive'
+                [style.width.px]='200'
+                [style.margin.px]='2'
+                [src]='image.url'
+                [title]='image.title'>
+          </div>
+        
+      </div>
+    </div>
+  
+    <div class='card-footer'>
+      <button class='btn btn-outline-secondary'
+              style='width:80px'
+              (click)='onBack()'>
+        <i class='fa fa-chevron-left'></i> Back
+      </button>
+    </div>
+  </div>

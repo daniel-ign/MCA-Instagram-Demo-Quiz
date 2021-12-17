@@ -1,0 +1,132 @@
+<div class='card'>
+    <div class='card-header'>
+      {{pageTitle}}
+    </div>
+  
+    <div class='card-body'>
+      <div class='row'>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <div class='col-md-8'>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Title:</div>         
+              <div>
+                <input type="text" 
+                      value="ngModel"
+                      name="title" 
+                      id="title" 
+                      class="form-control" 
+                      [(ngModel)]="image.title"
+                      required #titleField="ngModel"
+                      [class.field-error]="form.submitted && titleField.invalid">
+                      <div [hidden]="!form.submitted || titleField.valid" class="alert alert-danger">
+                        Enter a Title
+                      </div>
+              </div>    
+            </div>
+
+            <div class="row">
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row'>
+              <div class='col-md-4'>Id:</div>
+              <div>
+                <input type="text" [(ngModel)]="image.id" id="id" name="id" class="form-control" value="{{image.id}}" disabled>
+              </div>
+            </div>
+
+            <div class="row" >
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Album Id:</div>
+              <div >
+                <input type="number"  
+                      name="albumId" 
+                      id="albumId" 
+                      class="form-control" 
+                      [(ngModel)]="image.albumId"
+                      required #albumIdField="ngModel"
+                      [class.field-error]="form.submitted && albumIdField.invalid">
+                      <div [hidden]="!form.submitted || albumIdField.valid" class="alert alert-danger">
+                        Enter a Album Id
+                      </div> 
+              </div>
+            </div>
+
+            <div class="row" >
+                <div class='col-md-4'>&nbsp;</div>
+            </div>
+  
+            <div class='row form-group'>
+                <div class='col-md-4'>Upload File:</div>
+                <div>
+                    <input class="form-control" 
+                          type="file" 
+                          id="file" 
+                          name="file" 
+                          accept="image/*" 
+                          (change)="handleFileInput($event)" 
+                          value="{{filePath}}"
+                          #fileUpload>          
+                </div>       
+            </div>
+
+            <div class="row" >
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Url:</div>
+              <div>
+                <input type="text" id="url" [(ngModel)]="image.url" name="url" class="form-control" value="{{filePath}}" readonly>
+              </div> 
+            </div>
+
+            <div class="row">
+              <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class='row form-group'>
+              <div class='col-md-4'>Thumbnail Url:</div>
+              <div>
+                <input type="text" id="thumbnailUrl" [(ngModel)]="image.thumbnailUrl" name="thumbnailUrl" class="form-control" value="{{filePath}}" readonly>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class='col-md-4'>&nbsp;</div>
+            </div>
+
+            <div class="row form-group">
+              <div class='col-md-4'>
+                  <button class="btn btn-outline-success">Upload</button>&nbsp;
+                  <button type="button" class="btn btn-outline-danger" (click)="cancel(form)" >Cancel</button>
+              </div>
+              
+            </div>
+            
+          </div>
+        </form>
+        <div class="row" *ngIf="imageSrc !== ''">
+          <div class='col-md-4'>&nbsp;</div>
+        </div>
+        <div class='col-md-4' *ngIf="imageSrc !== ''">
+          <img class='center-block img-responsive'
+              [style.width.px]='200'
+              [style.margin.px]='2'
+              [src]='imageSrc'>
+        </div>  
+      </div>
+    </div>
+  
+    <div class='card-footer'>
+      <button class='btn btn-outline-secondary'
+              style='width:80px'
+              (click)='onBack()'>
+        <i class='fa fa-chevron-left'></i> Back
+      </button>
+    </div>
+  </div>
